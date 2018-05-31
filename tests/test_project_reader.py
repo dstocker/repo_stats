@@ -9,4 +9,4 @@ def test_missing_file():
 
 
 def test_empty_file():
-    assert read_project('test_files/empty.csv') == []
+    assert read_project('tests/test_files/empty.csv') == []
