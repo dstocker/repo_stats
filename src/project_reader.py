@@ -1,4 +1,8 @@
 
 
 def read_project(filename):
-    pass
+
+    with open(filename) as f:
+        pass
+
+    return []
