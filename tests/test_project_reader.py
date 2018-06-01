@@ -1,7 +1,7 @@
 
 from project_reader import read_project
 import pytest
-PATH = 'tests/test_files/'
+PATH = 'test_files/'
 
 
 def test_missing_file():
