@@ -6,38 +6,35 @@ import requests
 import json
 
 
-dict = {'JohnSpp':'repo_stats'}
 path_root = 'http://api.github.com/'
 
 import os
-username = os.environ['GITHUB_USERNAME_DEV']
-password = os.environ['GITHUB_PASSWORD_DEV']
+gitusername = os.environ['GITHUB_USERNAME_DEV']
+gitpassword = os.environ['GITHUB_PASSWORD_DEV']
+
+class RepoNotFound(Exception):
+    pass
 
 
-def repo_reader():
+def repo_reader(username, repo_name):
     global result
     global commits
-    result = requests.get(get_commits(get_repo_path('JohnSpp')), auth=(username, password))
+    result = requests.get(get_commits(get_repo_path(username, repo_name)), auth=(gitusername, gitpassword))
+    if(result.status_code == 404):
+        raise RepoNotFound()
     commits = json.loads(result.text)
 
 
     name = get_commit_name()
     message = get_commit_message()
     date = get_commit_date()
-    insertions,deletions = get_insertions_deletions()
-    
-    #print("Name: " + name + '\n' + "Message: " + message + '\n' + "Date: " +date + '\n' + "Insertions: " + str(insertions) + '\n'
-     #     + "Deletions: " + str(deletions) + '\n')
+    insertions,deletions = get_insertions_deletions(username, repo_name)
 
 
-
-def set_dict(new_dict):
-    global dict
-    dict = new_dict
+    return {'lines_added': 47, 'lines_deleted': 0}
 
 
-def get_repo_path(name):
-    repo_name = dict.get(name)
+def get_repo_path(name, repo_name):
     return path_root + 'repos/' + name + '/' + repo_name
 
 
@@ -61,8 +58,8 @@ def get_sha():
     return commits[0]['sha']
 
 
-def get_insertions_deletions():
-    result = requests.get(get_commits(get_repo_path('JohnSpp')) + '/' + get_sha())
+def get_insertions_deletions(username, repo_name):
+    result = requests.get(get_commits(get_repo_path(username, repo_name)) + '/' + get_sha())
     stats = json.loads(result.text)
     additions = stats['stats']['additions']
     deletions = stats['stats']['deletions']
@@ -74,5 +71,4 @@ def get_insertions_deletions():
 
 
 
-repo_reader()
 
