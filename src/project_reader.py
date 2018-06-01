@@ -1,3 +1,4 @@
+import csv
 
 """
 Code to read the list of username and repo names.
@@ -14,7 +15,15 @@ def read_project(filename):
     :raises: FileNotFoundError if the file cannot be opened
     """
 
-    with open(filename) as f:
-        pass
+    with open(filename) as csvfile:
+        list = []
+        reader = csv.reader(csvfile)
+        for row in reader:
+            try:
+                if row[0] != "" and row[1] != "":
+                    dict = {row[0]: row[1]}
+                    list.append(dict)
+            except IndexError:
+                pass
 
-    return []
+    return list
