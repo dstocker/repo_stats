@@ -77,7 +77,7 @@ def test_bad_username_throws_exception():
 
 def test_happy_path():
 
-    with open('tests/test_files/commitexample.json') as f:
+    with open('test_files/commitexample.json') as f:
         expected_json = f.read()
 
         with requests_mock.Mocker() as m:

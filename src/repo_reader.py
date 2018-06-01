@@ -25,10 +25,10 @@ def repo_reader(username, repo_name):
     commits = json.loads(result.text)
 
 
-    name = get_commit_name()
-    message = get_commit_message()
-    date = get_commit_date()
-    insertions,deletions = get_insertions_deletions(username, repo_name)
+    #name = get_commit_name()
+    #message = get_commit_message()
+    #date = get_commit_date()
+    #insertions,deletions = get_insertions_deletions(username, repo_name)
 
 
     return {'lines_added': 47, 'lines_deleted': 0}
