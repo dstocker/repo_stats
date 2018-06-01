@@ -13,5 +13,5 @@ Execute the following commands in the root of the project.  This must be done *B
 To tell PyCharm to use `pytest`:
 
 * Open Preferences (CMD-,)
-* Goto 'Tools/Python Ingegration Tools'
+* Goto 'Tools/Python Integrated Tools'
 * Change 'Default Test Runner' to 'py.test'
